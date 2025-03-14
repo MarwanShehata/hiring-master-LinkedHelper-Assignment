@@ -3,6 +3,8 @@
 **Test/Assignment Application for LinkedHelper**
 
 **Recipient:** Alena Emelianenko (alena.emelianenko@linkedhelper.com)
+write the following link: https://hh.ru/vacancy/116105297?utm_source=email&utm_medium=email&utm_campaign=company_interested&utm_content=text&sent_date=2025_03_11&email_hash=86139959fbdc5dc7e4101572df1c88e3
+**Vaccancy:**: [Job Vacancy on HH.ru](https://hh.ru/vacancy/116105297?utm_source=email&utm_medium=email&utm_campaign=company_interested&utm_content=text&sent_date=2025_03_11&email_hash=86139959fbdc5dc7e4101572df1c88e3)
 
 ## Task Description
 
