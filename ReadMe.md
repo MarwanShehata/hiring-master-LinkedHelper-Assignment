@@ -1,6 +1,7 @@
 # Тестовое задание "Планировщик задач"
 
-* Каждая отдельная задача выглядит следующим образом:
+- Каждая отдельная задача выглядит следующим образом:
+
   ```
   interface ITask {
     targetId: number
@@ -10,7 +11,8 @@
 
   Использовать специальные хуки `_onComplete` или `_onExecute` нельзя, они используются для диагностики и логирования.
 
-* Есть специальный класс `Executor` (`src/Executor.ts`), который умеет исполнять одну задачу:
+- Есть специальный класс `Executor` (`src/Executor.ts`), который умеет исполнять одну задачу:
+
   ```
   Executor.executeTask(task: ITask): Promise<void>
   ```
@@ -24,27 +26,30 @@
 ```
 async function run(executor: IExecutor, queue: AsyncIterable<ITask>, maxThreads = 0): Promise<{...}>
 ```
+
 При `maxThreads == 0` ограничения на кол-во одновременных "потоков" нету.
 
 Функция должна исполнить задачи максимально быстро, стараясь как можно больше задач исполнить параллельно. Но, есть ограничение (в нем заключается основная сложность задачи): в один момент времени `Executor` не может исполнять несколько разных задач с одним и тем же `Task.targetId`, но при этом он может исполнять много разных задач с разными `Task.targetId` параллельно.
 
-* Например, если мы вызовем  
+- Например, если мы вызовем
+
   ```
   executor.executeTask({ targetId: 0, action: 'init' });
   executor.executeTask({ targetId: 0, action: 'prepare' });
-  ```  
+  ```
+
   то, второй вызов кинет исключение.
 
-* При этом  
+- При этом
   ```
   executor.executeTask({ targetId: 0, action: 'init' });
   executor.executeTask({ targetId: 1, action: 'prepare' });
-  ```  
+  ```
   или
   ```
   await executor.executeTask({ targetId: 0, action: 'init' });
   await executor.executeTask({ targetId: 0, action: 'prepare' });
-  ```  
+  ```
   отработают нормально.
 
 При взятии задачи из очереди (вызов `iterator.next()` или итерация через `for ... of`) она автоматически удаляется из очереди, при этом существующие итераторы не инвалидируются. При этом надо учесть, что очередь может быть пополнена во время исполнения задач, а также, никто не гарантирует, что очередь конечна в принципе.
@@ -55,17 +60,18 @@ async function run(executor: IExecutor, queue: AsyncIterable<ITask>, maxThreads 
 
 ## Настройка окружения:
 
-* `Node.js version >= 12`
+- `Node.js version >= 12`
 
 ## Установка и подготовка
 
 `npm install`
 
 ## Разработка решения
-* Заготовка для функции `run()` лежит в `./src/run.ts`. 
-* Никакие другие файлы, кроме `./src/run.ts` менять нельзя. 
-* Обвязочный код в `run.ts` менять нельзя
-* Внутри одного вызова `run()` создавать дополнительные эксземпляры `Executor` нельзя.
+
+- Заготовка для функции `run()` лежит в `./src/run.ts`.
+- Никакие другие файлы, кроме `./src/run.ts` менять нельзя.
+- Обвязочный код в `run.ts` менять нельзя
+- Внутри одного вызова `run()` создавать дополнительные эксземпляры `Executor` нельзя.
 
 ## Самостоятельная проверка правильности решения
 
@@ -80,15 +86,19 @@ async function run(executor: IExecutor, queue: AsyncIterable<ITask>, maxThreads 
 
 <img width="369" alt="Code_O2bY8fy5hD" src="https://github.com/user-attachments/assets/50278778-01fc-40df-aeda-884de73e7577">
 
-
 У коректного решения `npm run test` дает следующий вывод:
 
 <img width="440" alt="Code_RLL5YHVeFu" src="https://github.com/user-attachments/assets/76743e2a-5fdb-4d19-8d3e-0a0a8f01c6b8">
 
 ---
+
 ---
 
 # Test Task "Task Scheduler"
+
+**Test/Assignment Application for LinkedHelper**
+
+**Recipient:** Alena Emelianenko (alena.emelianenko@linkedhelper.com)
 
 ## Task Description
 
@@ -97,7 +107,7 @@ Each individual task is structured as follows:
 ```typescript
 interface ITask {
   targetId: number;
-  action: 'init' | 'prepare' | 'work' | 'finalize' | 'cleanup';
+  action: "init" | "prepare" | "work" | "finalize" | "cleanup";
 }
 ```
 
@@ -134,20 +144,20 @@ async function run(
 - The following will **throw an exception** because they have the same `targetId`:
 
   ```typescript
-  executor.executeTask({ targetId: 0, action: 'init' });
-  executor.executeTask({ targetId: 0, action: 'prepare' }); // ❌ Throws an error
+  executor.executeTask({ targetId: 0, action: "init" });
+  executor.executeTask({ targetId: 0, action: "prepare" }); // ❌ Throws an error
   ```
 
 - However, these are **valid**:
 
   ```typescript
-  executor.executeTask({ targetId: 0, action: 'init' });
-  executor.executeTask({ targetId: 1, action: 'prepare' }); // ✅ Works
+  executor.executeTask({ targetId: 0, action: "init" });
+  executor.executeTask({ targetId: 1, action: "prepare" }); // ✅ Works
   ```
 
   ```typescript
-  await executor.executeTask({ targetId: 0, action: 'init' });
-  await executor.executeTask({ targetId: 0, action: 'prepare' }); // ✅ Works (executed sequentially)
+  await executor.executeTask({ targetId: 0, action: "init" });
+  await executor.executeTask({ targetId: 0, action: "prepare" }); // ✅ Works (executed sequentially)
   ```
 
 ---
@@ -207,4 +217,4 @@ npm run test
 
 A **correct solution** should produce the following output:
 
-  ![Correct Test Output](https://github.com/user-attachments/assets/76743e2a-5fdb-4d19-8d3e-0a0a8f01c6b8)
+![Correct Test Output](https://github.com/user-attachments/assets/76743e2a-5fdb-4d19-8d3e-0a0a8f01c6b8)
